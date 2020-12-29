@@ -1,0 +1,34 @@
+DROP TABLE IF EXISTS MilitaryCard;
+
+CREATE TABLE MilitaryCard (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   FirstName VARCHAR(250) NOT NULL,
+   LastName VARCHAR(250) NOT NULL,
+   DocumentNumber INT,
+   Rank VARCHAR(250) NOT NULL,
+   MilitaryBaseNumber INT
+);
+
+DROP TABLE IF EXISTS Passport;
+
+CREATE TABLE Passport (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   FirstName VARCHAR(250) NOT NULL,
+   LastName VARCHAR(250) NOT NULL,
+   DocumentNumber INT,
+   PlaceOfBirth VARCHAR(250) NOT NULL,
+   BirthDate DATE NOT NULL
+);
+
+DROP TABLE IF EXISTS StudentCard;
+
+CREATE TABLE StudentCard (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   FirstName VARCHAR(250) NOT NULL,
+   LastName VARCHAR(250) NOT NULL,
+   DocumentNumber INT,
+   Course VARCHAR(250) NOT NULL,
+   GroupNumber VARCHAR(250) NOT NULL
+)
+
+
