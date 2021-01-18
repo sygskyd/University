@@ -11,6 +11,6 @@ public class IdentityCardController {
 
     @GetMapping("/MilitaryCard")
     public String getMilitaryCard() {
-        return "militaryCard";
+         return "militaryCard";
     }
 }
