@@ -1,4 +1,4 @@
-package model.IdentityCard;
+package com.dmitry.university.model.IdentityCard;
 
 import lombok.Data;
 
