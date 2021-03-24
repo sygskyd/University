@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Save Identity Card</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Add id-card</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Id-card</p>
+
+    <form action="#" th:action="@{/id-card/saveIdentityCard}"
+          th:object="${identityCard}" method="POST">
+
+        <input type="hidden" th:field="*{cardId}"/>
+
+        <div class="form-group">
+            <input type="text" th:field="*{firstName}"
+                   class="form-control mb-4 col-4" placeholder="First name">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" th:field="*{lastName}"
+                   class="form-control mb-4 col-4" placeholder="Last name">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" th:field="*{documentNumber}"
+                   class="form-control mb-4 col-4" placeholder="Doc number">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('documentNumber')}" th:errors="*{documentNumber}"></div>
+        </div>
+
+        <div class="form-group">
+            <select name="card Type" th:field="*{idCardType}">
+            <option th:each="idCardTypeOpt : ${T(com.dmitry.university.model.IdentityCard.IdCardType).values()}"
+                    th:value="${idCardTypeOpt}" th:text="${idCardTypeOpt}"></option>
+            </select>
+            <!--<input type="text" th:field="*{idCardType}"-->
+                   <!--class="form-control mb-4 col-4" placeholder="Card type">-->
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('idCardType')}" th:errors="*{idCardType}"></div>
+        </div>
+
+                <button type="submit" class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+    <a th:href="@{/id-card/identity-cards}">Back to Id-cards List</a>
+
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

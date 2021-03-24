@@ -4,21 +4,39 @@ package com.dmitry.university.model.IdentityCard;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
+
 
 @Data
-@MappedSuperclass
-public abstract class BaseIdentityEntity {
+@Entity
+@Table(name = "BASE_ID_ENTITY")
+public class BaseIdentityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name="CARD_ID")
+    @NotNull
+    private int cardId;
 
-    @Column(name = "FirstName")
+    @NotNull
+    @Size(min = 1)
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @Column(name = "LastName")
+    @Size(min = 2)
+    @Column(name = "LAST_NAME")
     private String lastName;
 
-    @Column(name = "DocumentNumber")
+
+    @Min(value = 100000)
+    @Max(value = 999999)
+    //@Pattern(regexp = "\\[0-9]{6}", message = "must be 6 digits")
+    @Column(name = "DOC_NUMBER")
     private int documentNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ID_CARD_TYPE")
+    private IdCardType idCardType;
+
 }

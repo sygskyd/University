@@ -1,43 +1,60 @@
 package com.dmitry.university.controller;
 
 
-import com.dmitry.university.model.IdentityCard.MilitaryCard;
+import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.dmitry.university.service.MilitaryCardServiceImpl;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
+import com.dmitry.university.service.IdentityCardServiceImpl;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("/id-card")
 public class IdentityCardController {
-    private MilitaryCardServiceImpl militaryCardService;
+    private IdentityCardServiceImpl identityCardService;
 
-    public IdentityCardController(MilitaryCardServiceImpl militaryCardService) {
-        this.militaryCardService = militaryCardService;
+    public IdentityCardController(IdentityCardServiceImpl identityCardService) {
+        this.identityCardService = identityCardService;
     }
 
-    @GetMapping("/military-cards")
-    public String getMilitaryCards(Model theModel) {
-        List <MilitaryCard> militaryCards = militaryCardService.findAll();
-        theModel.addAttribute("militaryCards", militaryCards );
-        return "/militarycards/militaryCardList";
+    @GetMapping("/identity-cards")
+    public String getIdentityCards(Model theModel) {
+        List <BaseIdentityEntity> identityCards = identityCardService.findAll();
+        theModel.addAttribute("identityCards", identityCards );
+        return "/identitycards/identityCardList";
     }
 
-    @GetMapping("/showFormForMilAdd")
-    public String showAddMilCardForm (Model theModel){
-        MilitaryCard militaryCard = new MilitaryCard();
-        theModel.addAttribute("militaryCard", militaryCard);
-        return "/militarycards/milCardForm";
+    @GetMapping("/showFormForCardAdd")
+    public String showAddIdCardForm (Model theModel){
+        BaseIdentityEntity identityCard = new BaseIdentityEntity();
+        theModel.addAttribute("identityCard", identityCard);
+        return "/identitycards/idCardForm";
     }
 
-    @PostMapping("/saveMilCard")
-    public String saveMilCard (@ModelAttribute("employee") MilitaryCard militaryCard) {
-        militaryCardService.save(militaryCard);
-        return "redirect:/id-card/military-cards";
+    @PostMapping("/saveIdentityCard")
+    public String saveIdCard (@ModelAttribute("identityCard") @Valid BaseIdentityEntity identityCard, BindingResult result) {
+        if (result.hasErrors()) {
+
+            return "/identitycards/idCardForm";
+        }
+        identityCardService.save(identityCard);
+        return "redirect:/id-card/identity-cards";
+    }
+
+    @PostMapping("/showFormForCardUpdate")
+    public String showUpdateIdCardForm (@RequestParam("cardId")  int cardId, Model theModel) {
+        BaseIdentityEntity identityCard = identityCardService.findById(cardId);
+        theModel.addAttribute("identityCard", identityCard);
+        return "/identitycards/idCardForm";
+    }
+
+    @PostMapping("/deleteCard")
+    public String deleteCard (@RequestParam("cardId") int cardId) {
+        identityCardService.deleteById(cardId);
+        return "redirect:/id-card/identity-cards";
     }
 }
