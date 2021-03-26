@@ -1,8 +1,12 @@
 package com.dmitry.university.service;
 
 import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
-//import com.dmitry.university.model.IdentityCard.MilitaryCard;
+import com.dmitry.university.model.paging.Paged;
+import com.dmitry.university.model.paging.Paging;
 import com.dmitry.university.repository.IdentityCardRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -10,6 +14,7 @@ import java.util.List;
 
 @Service
 public class IdentityCardServiceImpl implements IdentityCardService {
+
 
     private IdentityCardRepository identityCardRepository;
 
@@ -37,4 +42,6 @@ public class IdentityCardServiceImpl implements IdentityCardService {
     public void deleteById(int theId) {
         identityCardRepository.deleteById(theId);
     }
+
+
 }

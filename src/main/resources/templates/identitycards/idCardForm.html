@@ -41,7 +41,7 @@
 
         <div class="form-group">
             <input type="text" th:field="*{documentNumber}"
-                   class="form-control mb-4 col-4" placeholder="Doc number">
+                   class="form-control mb-4 col-4" placeholder="">
             <div class="alert alert-warning" th:if="${#fields.hasErrors('documentNumber')}" th:errors="*{documentNumber}"></div>
         </div>
 
