@@ -23,9 +23,11 @@ public class IdentityCardServiceImpl implements IdentityCardService {
     }
 
 
+
+
     @Override
-    public List<BaseIdentityEntity> findAll() {
-        return identityCardRepository.findAll();
+    public Page<BaseIdentityEntity> findAll(int page, int size) {
+        return identityCardRepository.findAll(PageRequest.of(page, size));
     }
 
     @Override

@@ -69,10 +69,43 @@
 						</div>
 					</div>
 				</td>
-
 			</tr>
+
 		</tbody>
 	</table>
+	<nav aria-label="Pagination"  th:if="${identityCards.totalPages gt 0}">
+		<ul class="pagination justify-content-center font-weight-bold">
+			<li class="page-item" th:classappend="${identityCards.number eq 0} ? 'disabled'">
+				<a class="page-link"
+				   th:href="@{/id-card/identity-cards?page={id}(id=${identityCards.number lt 2 ? 1 : identityCards.number})}"
+				   aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<li class="page-item disabled" th:if="${identityCards.number > 4 }">
+				<a class="page-link svg-icon" href="#">
+					<span data-feather="more-horizontal" width="20" height="20"></span>
+				</a>
+			</li>
+			<li class="page-item" th:classappend="${i eq identityCards.number + 1} ? 'active'"
+				th:each="i : ${#numbers.sequence( identityCards.number < 5 ? 1 : identityCards.number - 3, identityCards.totalPages > 5 + identityCards.number ? identityCards.number + 5 : identityCards.totalPages, 1)}">
+				<a class="page-link" th:href="@{/id-card/identity-cards?page={id}(id=${i})}" th:text="${i}"
+				   th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+			</li>
+			<li class="page-item disabled" th:if="${identityCards.number + 5 < identityCards.totalPages}">
+				<a class="page-link svg-icon" href="#">
+					<span data-feather="more-horizontal" width="20" height="20"></span>
+				</a>
+			</li>
+			<li class="page-item" th:classappend="${identityCards.number + 1 eq identityCards.totalPages} ? 'disabled'">
+				<a class="page-link svg-icon"
+				   th:href="@{/id-card/identity-cards?page={id}(id=${identityCards.number + 2})}"
+				   aria-label="Next" title="Next Page" data-toggle="tooltip">
+					<span aria-hidden="true" data-feather="chevrons-right" width="20" height="20">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
 </div>
 	
 </body>

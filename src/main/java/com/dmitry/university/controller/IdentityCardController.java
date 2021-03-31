@@ -2,6 +2,7 @@ package com.dmitry.university.controller;
 
 
 import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,21 +10,39 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import com.dmitry.university.service.IdentityCardServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("/id-card")
 public class IdentityCardController {
+
+
+
     private IdentityCardServiceImpl identityCardService;
 
     public IdentityCardController(IdentityCardServiceImpl identityCardService) {
         this.identityCardService = identityCardService;
     }
 
+
+
     @GetMapping("/identity-cards")
-    public String getIdentityCards(Model theModel) {
-        List <BaseIdentityEntity> identityCards = identityCardService.findAll();
+    public String getIdentityCards(HttpServletRequest request, Model theModel) {
+
+        int page = 0; //default page number
+        int size = 1; // default page size
+
+        if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+            page = Integer.parseInt(request.getParameter("page")) - 1;
+        }
+
+        if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+            size = Integer.parseInt(request.getParameter("size"));
+        }
+
+        Page<BaseIdentityEntity> identityCards = identityCardService.findAll(page, size);
         theModel.addAttribute("identityCards", identityCards );
         return "/identitycards/identityCardList";
     }
