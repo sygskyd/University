@@ -1,8 +1,6 @@
 package com.dmitry.university.service;
 
 import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
-import com.dmitry.university.model.paging.Paged;
-import com.dmitry.university.model.paging.Paging;
 import com.dmitry.university.repository.IdentityCardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

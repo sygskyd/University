@@ -1,6 +1,7 @@
 package com.dmitry.university.model.IdentityCard;
 
 
+import com.dmitry.university.model.Community.StudyGroup;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -38,5 +39,9 @@ public class BaseIdentityEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "ID_CARD_TYPE")
     private IdCardType idCardType;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "STUDY_GROUP_ID", nullable = false)
+    private StudyGroup studyGroup;
 
 }
