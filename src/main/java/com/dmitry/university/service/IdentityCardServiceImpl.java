@@ -20,9 +20,6 @@ public class IdentityCardServiceImpl implements IdentityCardService {
         this.identityCardRepository = identityCardRepository;
     }
 
-
-
-
     @Override
     public Page<BaseIdentityEntity> findAll(int page, int size) {
         return identityCardRepository.findAll(PageRequest.of(page, size));
@@ -30,7 +27,7 @@ public class IdentityCardServiceImpl implements IdentityCardService {
 
     @Override
     public BaseIdentityEntity findById(int theId) {
-        return identityCardRepository.findById(theId).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + theId));
+        return identityCardRepository.findById(theId).orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + theId));
     }
 
     @Override

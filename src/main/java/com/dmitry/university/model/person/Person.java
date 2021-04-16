@@ -29,7 +29,8 @@ public class Person {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    //@DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Temporal(TemporalType.DATE)
     @Column(name = "BIRTHDATE")
     private Date birthdate;
 

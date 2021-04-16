@@ -32,7 +32,7 @@ public class IdentityCardController {
     public String getIdentityCards(HttpServletRequest request, Model theModel) {
 
         int page = 0; //default page number
-        int size = 1; // default page size
+        int size = 5; // default page size
 
         if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
             page = Integer.parseInt(request.getParameter("page")) - 1;
