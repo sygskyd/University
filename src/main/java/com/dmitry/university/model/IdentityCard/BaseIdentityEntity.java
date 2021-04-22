@@ -5,6 +5,8 @@ import com.dmitry.university.model.Community.StudyGroup;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -39,9 +41,5 @@ public class BaseIdentityEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "ID_CARD_TYPE")
     private IdCardType idCardType;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "STUDY_GROUP_ID", nullable = false)
-    private StudyGroup studyGroup;
 
 }

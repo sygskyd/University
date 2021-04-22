@@ -2,6 +2,7 @@ package com.dmitry.university.model.Community;
 
 
 import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
+import com.dmitry.university.model.person.Person;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,5 +29,5 @@ public class StudyGroup {
     private int courseNumber;
 
     @OneToMany(mappedBy = "studyGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<BaseIdentityEntity> peopleIdSet;
+    private Set<Person> personSet;
 }

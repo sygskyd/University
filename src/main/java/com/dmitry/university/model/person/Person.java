@@ -1,6 +1,7 @@
 package com.dmitry.university.model.person;
 
 
+import com.dmitry.university.model.Community.StudyGroup;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,5 +34,9 @@ public class Person {
     @Temporal(TemporalType.DATE)
     @Column(name = "BIRTHDATE")
     private Date birthdate;
+
+    @ManyToOne()
+    @JoinColumn(name = "STUDY_GROUP_ID")
+    private StudyGroup studyGroup;
 
 }
