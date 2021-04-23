@@ -17,6 +17,8 @@
 
 <div class="container">
 
+    <div th:replace="fragments/header :: header('clients')" />
+
     <h3>Add id-card</h3>
     <hr>
 
@@ -64,7 +66,7 @@
 
 </div>
 </body>
-
+<div th:replace="fragments/footer :: footer" />
 </html>
 
 

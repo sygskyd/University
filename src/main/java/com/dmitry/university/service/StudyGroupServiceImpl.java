@@ -14,6 +14,10 @@ public class StudyGroupServiceImpl implements StudyGroupService {
 
     private StudyGroupRepository studyGroupRepository;
 
+    public StudyGroupServiceImpl(StudyGroupRepository studyGroupRepository) {
+        this.studyGroupRepository = studyGroupRepository;
+    }
+
 
     @Override
     public Page<StudyGroup> findAll(int page, int size) {

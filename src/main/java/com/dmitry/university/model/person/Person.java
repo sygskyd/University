@@ -30,12 +30,12 @@ public class Person {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    //@DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     @Column(name = "BIRTHDATE")
     private Date birthdate;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "STUDY_GROUP_ID")
     private StudyGroup studyGroup;
 

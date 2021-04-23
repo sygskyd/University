@@ -16,6 +16,8 @@
 
 <div class="container">
 
+	<div th:replace="fragments/header :: header('person')" />
+
 	<h3>Person's info</h3>
 	<hr>
 	
@@ -43,7 +45,7 @@
 				<td th:text="${person.firstName}" />
 				<td th:text="${person.lastName}" />
 				<td th:text="${person.birthdate}" />
-				<td th:text="${person.studyGroup}" />
+				<td th:text="${person.getStudyGroup().getGroupName()}" />
 				<td>
 					<div class="row">
 
@@ -107,7 +109,7 @@
 		</ul>
 	</nav>
 </div>
-	
+<div th:replace="fragments/footer :: footer" />
 </body>
 </html>
 
