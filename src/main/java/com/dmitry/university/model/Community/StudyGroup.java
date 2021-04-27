@@ -4,12 +4,18 @@ package com.dmitry.university.model.Community;
 
 import com.dmitry.university.model.person.Person;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
-@Data
+
+@Getter
+@Setter
 @Entity
 @Table(name = "STUDY_GROUP")
 public class StudyGroup {

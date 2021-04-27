@@ -2,6 +2,7 @@ package com.dmitry.university.service;
 
 import com.dmitry.university.model.Community.StudyGroup;
 import com.dmitry.university.repository.StudyGroupRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

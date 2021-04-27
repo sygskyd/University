@@ -24,6 +24,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public List<Person> findAll() {
+        return personRepository.findAll();
+    }
+
+    @Override
     public Person findById(int theId) {
         return personRepository.findById(theId).orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + theId));
     }

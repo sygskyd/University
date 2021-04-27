@@ -59,7 +59,7 @@ public class PersonController {
         Person person = new Person();
         theModel.addAttribute("person", person);
         List<StudyGroup> studyGroupList= studyGroupService.findAll();
-        theModel.addAttribute(studyGroupList);
+        theModel.addAttribute("studyGroupList", studyGroupList);
         return "/person/personForm";
     }
 
@@ -69,6 +69,8 @@ public class PersonController {
         String personsGroupName = person.getStudyGroup().getGroupName();
         theModel.addAttribute( "person", person);
         theModel.addAttribute( "personsGroupName", personsGroupName);
+        List<StudyGroup> studyGroupList= studyGroupService.findAll();
+        theModel.addAttribute("studyGroupList", studyGroupList);
         return "/person/personForm";
     }
 
