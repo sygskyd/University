@@ -57,8 +57,9 @@
 
         <div class="form-group">
             <select th:field="*{person}" class="form-control" required>
-                <th:block th:each="person : ${freePersonList}">
-                    <option th:value="${person.personId}" th:text="${person.firstName + ' ' + person.lastName}"></option>
+                <th:block th:each="freePerson : ${freePersonList}">
+                    <option th:value="${freePerson.personId}" th:text="${freePerson.firstName + ' ' + freePerson.lastName}"
+                    th:selected="${freePerson.firstName} == ${personsName}"></option>
                 </th:block>
             </select>
             <div class="alert alert-warning" th:if="${#fields.hasErrors('person')}" th:errors="*{person}"></div>

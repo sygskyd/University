@@ -3,6 +3,7 @@ package com.dmitry.university.controller;
 
 import com.dmitry.university.model.Community.StudyGroup;
 import com.dmitry.university.model.person.Person;
+import com.dmitry.university.service.PersonService;
 import com.dmitry.university.service.PersonServiceImpl;
 import com.dmitry.university.service.StudyGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,12 @@ import java.util.List;
 public class PersonController {
 
     @Autowired
-    private PersonServiceImpl personService;
+    private PersonService personService;
+
     @Autowired
     private StudyGroupService studyGroupService;
 
-    public PersonController(PersonServiceImpl personService, StudyGroupService studyGroupService) {
+    public PersonController(PersonService personService, StudyGroupService studyGroupService) {
         this.personService = personService;
         this.studyGroupService = studyGroupService;
     }

@@ -2,6 +2,7 @@ package com.dmitry.university.model.person;
 
 
 import com.dmitry.university.model.Community.StudyGroup;
+import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,5 +42,8 @@ public class Person {
     @ManyToOne
     @JoinColumn(name = "STUDY_GROUP_ID")
     private StudyGroup studyGroup;
+
+    @OneToOne(optional=false, mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private BaseIdentityEntity baseIdentityEntity;
 
 }

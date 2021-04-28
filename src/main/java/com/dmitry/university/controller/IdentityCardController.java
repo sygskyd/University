@@ -2,30 +2,36 @@ package com.dmitry.university.controller;
 
 
 import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
+import com.dmitry.university.model.person.Person;
+import com.dmitry.university.service.IdentityCardService;
+import com.dmitry.university.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import com.dmitry.university.service.IdentityCardServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/id-card")
 public class IdentityCardController {
 
+    @Autowired
+    private PersonService personService;
 
+    @Autowired
+    private IdentityCardService identityCardService;
 
-    private IdentityCardServiceImpl identityCardService;
-
-    public IdentityCardController(IdentityCardServiceImpl identityCardService) {
+    public IdentityCardController(PersonService personService, IdentityCardService identityCardService) {
+        this.personService = personService;
         this.identityCardService = identityCardService;
     }
-
 
 
     @GetMapping("/identity-cards")
@@ -49,6 +55,11 @@ public class IdentityCardController {
 
     @GetMapping("/showFormForCardAdd")
     public String showAddIdCardForm (Model theModel){
+        List<Person> personList = personService.findAll();
+        List<Person> freePersonList = personList.stream()
+                .filter(person -> person.getBaseIdentityEntity() == null)
+                .collect(Collectors.toList());
+        theModel.addAttribute("freePersonList", freePersonList);
         BaseIdentityEntity identityCard = new BaseIdentityEntity();
         theModel.addAttribute("identityCard", identityCard);
         return "/identitycards/idCardForm";
@@ -68,7 +79,13 @@ public class IdentityCardController {
     public String showUpdateIdCardForm (@RequestParam("cardId")  int cardId, Model theModel) {
         BaseIdentityEntity identityCard = identityCardService.findById(cardId);
         theModel.addAttribute("identityCard", identityCard);
-        return "/identitycards/idCardForm";
+        List<Person> personList = personService.findAll();
+        List<Person> freePersonList = personList.stream()
+                .filter(person -> person.getBaseIdentityEntity() == null)
+                .collect(Collectors.toList());
+        freePersonList.add(identityCard.getPerson());
+        theModel.addAttribute("freePersonList", freePersonList);
+        return "/identitycards/idCardEditForm";
     }
 
     @PostMapping("/deleteCard")

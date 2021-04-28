@@ -35,6 +35,7 @@
 				<th>Last Name</th>
 				<th>Doc. Number</th>
 				<th>Card type</th>
+				<th>Person (from table PERSON)</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -46,6 +47,7 @@
 				<td th:text="${tempIdCard.lastName}" />
 				<td th:text="${tempIdCard.documentNumber}" />
 				<td th:text="${tempIdCard.idCardType}" />
+				<td th:text="${tempIdCard?.person?.firstName} + ', bearthday: ' + ${tempIdCard?.person?.birthdate} " />
 				<td>
 					<div class="row">
 

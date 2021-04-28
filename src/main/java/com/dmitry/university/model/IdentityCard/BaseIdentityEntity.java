@@ -2,7 +2,10 @@ package com.dmitry.university.model.IdentityCard;
 
 
 import com.dmitry.university.model.Community.StudyGroup;
+import com.dmitry.university.model.person.Person;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -11,7 +14,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "BASE_ID_ENTITY")
 public class BaseIdentityEntity {
@@ -41,5 +45,9 @@ public class BaseIdentityEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "ID_CARD_TYPE")
     private IdCardType idCardType;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PERSON_ID")
+    private Person person;
 
 }
