@@ -27,7 +27,7 @@
     <form action="#" th:action="@{/id-card/saveIdentityCard}"
           th:object="${identityCard}" method="POST">
 
-        <input type="hidden" th:field="*{cardId}"/>
+        <input type="hidden" th:field="*{id}"/>
 
         <div class="form-group">
             <input type="text" th:field="*{firstName}"

@@ -27,7 +27,7 @@
     <form action="#" th:action="@{/id-card/saveIdentityCard}"
           th:object="${identityCard}" method="POST">
 
-        <input type="hidden" th:field="*{cardId}"/>
+        <input type="hidden" th:field="*{id}"/>
 
         <div class="form-group">
             <input type="text" th:field="*{firstName}"
@@ -58,7 +58,7 @@
         <div class="form-group">
             <select th:field="*{person}" class="form-control" required>
                 <th:block th:each="freePerson : ${freePersonList}">
-                    <option th:value="${freePerson.personId}" th:text="${freePerson.firstName + ' ' + freePerson.lastName}"
+                    <option th:value="${freePerson.id}" th:text="${freePerson.firstName + ' ' + freePerson.lastName}"
                     th:selected="${freePerson.firstName} == ${personsName}"></option>
                 </th:block>
             </select>

@@ -3,9 +3,10 @@ package com.dmitry.university.controller;
 
 import com.dmitry.university.model.Community.StudyGroup;
 import com.dmitry.university.model.person.Person;
-import com.dmitry.university.service.PersonService;
-import com.dmitry.university.service.PersonServiceImpl;
-import com.dmitry.university.service.StudyGroupService;
+import com.dmitry.university.model.table2table.Person2Group;
+import com.dmitry.university.service.IPerson2GroupService;
+import com.dmitry.university.service.IPersonService;
+import com.dmitry.university.service.IStudyGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -22,14 +23,18 @@ import java.util.List;
 public class PersonController {
 
     @Autowired
-    private PersonService personService;
+    private IPerson2GroupService person2GroupService;
 
     @Autowired
-    private StudyGroupService studyGroupService;
+    private IPersonService personService;
 
-    public PersonController(PersonService personService, StudyGroupService studyGroupService) {
+    @Autowired
+    private IStudyGroupService studyGroupService;
+
+    public PersonController(IPersonService personService, IStudyGroupService studyGroupService, IPerson2GroupService person2GroupService) {
         this.personService = personService;
         this.studyGroupService = studyGroupService;
+        this.person2GroupService = person2GroupService;
     }
 
 
@@ -47,7 +52,7 @@ public class PersonController {
         }
         Page<Person> personsList = personService.findAll(page, size);
         theModel.addAttribute("personsList", personsList);
-        return "/person/person";
+        return "person/person";
     }
 
     @PostMapping("/deletePerson")
@@ -62,7 +67,7 @@ public class PersonController {
         theModel.addAttribute("person", person);
         List<StudyGroup> studyGroupList= studyGroupService.findAll();
         theModel.addAttribute("studyGroupList", studyGroupList);
-        return "/person/personForm";
+        return "person/personForm";
     }
 
     @PostMapping("/showFormForPersonUpdate")
@@ -73,13 +78,13 @@ public class PersonController {
         theModel.addAttribute( "personsGroupName", personsGroupName);
         List<StudyGroup> studyGroupList= studyGroupService.findAll();
         theModel.addAttribute("studyGroupList", studyGroupList);
-        return "/person/personForm";
+        return "person/personForm";
     }
 
     @PostMapping("/savePerson")
     public String savePerson(@ModelAttribute("person") @Valid Person person, BindingResult result){
         if (result.hasErrors()) {
-            return "/person/personForm";
+            return "person/personForm";
         }
         personService.save(person);
         return "redirect:/person";

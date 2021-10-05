@@ -3,15 +3,14 @@ package com.dmitry.university.controller;
 
 import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
 import com.dmitry.university.model.person.Person;
-import com.dmitry.university.service.IdentityCardService;
-import com.dmitry.university.service.PersonService;
+import com.dmitry.university.service.IIdentityCardService;
+import com.dmitry.university.service.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import com.dmitry.university.service.IdentityCardServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,12 +22,12 @@ import java.util.stream.Collectors;
 public class IdentityCardController {
 
     @Autowired
-    private PersonService personService;
+    private IPersonService personService;
 
     @Autowired
-    private IdentityCardService identityCardService;
+    private IIdentityCardService identityCardService;
 
-    public IdentityCardController(PersonService personService, IdentityCardService identityCardService) {
+    public IdentityCardController(IPersonService personService, IIdentityCardService identityCardService) {
         this.personService = personService;
         this.identityCardService = identityCardService;
     }
@@ -50,7 +49,7 @@ public class IdentityCardController {
 
         Page<BaseIdentityEntity> identityCards = identityCardService.findAll(page, size);
         theModel.addAttribute("identityCards", identityCards );
-        return "/identitycards/identityCardList";
+        return "identitycards/identityCardList";
     }
 
     @GetMapping("/showFormForCardAdd")
@@ -62,13 +61,12 @@ public class IdentityCardController {
         theModel.addAttribute("freePersonList", freePersonList);
         BaseIdentityEntity identityCard = new BaseIdentityEntity();
         theModel.addAttribute("identityCard", identityCard);
-        return "/identitycards/idCardForm";
+        return "identitycards/idCardForm";
     }
 
     @PostMapping("/saveIdentityCard")
     public String saveIdCard (@ModelAttribute("identityCard") @Valid BaseIdentityEntity identityCard, BindingResult result) {
         if (result.hasErrors()) {
-
             return "/identitycards/idCardForm";
         }
         identityCardService.save(identityCard);
@@ -85,7 +83,7 @@ public class IdentityCardController {
                 .collect(Collectors.toList());
         freePersonList.add(identityCard.getPerson());
         theModel.addAttribute("freePersonList", freePersonList);
-        return "/identitycards/idCardEditForm";
+        return "identitycards/idCardEditForm";
     }
 
     @PostMapping("/deleteCard")

@@ -2,8 +2,8 @@ package com.dmitry.university.controller;
 
 
 import com.dmitry.university.model.Community.StudyGroup;
-import com.dmitry.university.service.PersonService;
-import com.dmitry.university.service.StudyGroupService;
+import com.dmitry.university.service.IPersonService;
+import com.dmitry.university.service.IStudyGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -12,20 +12,19 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/studyGroup")
 public class StudyGroupController {
 
     @Autowired
-    StudyGroupService studyGroupService;
+    IStudyGroupService studyGroupService;
 
     @Autowired
-    PersonService personService;
+    IPersonService personService;
 
 
-    public StudyGroupController(StudyGroupService studyGroupService, PersonService personService) {
+    public StudyGroupController(IStudyGroupService studyGroupService, IPersonService personService) {
         this.studyGroupService = studyGroupService;
         this.personService = personService;
     }
@@ -46,14 +45,14 @@ public class StudyGroupController {
 
         Page<StudyGroup> studyGroupList = studyGroupService.findAll(page, size);
         model.addAttribute("studyGroupList", studyGroupList);
-        return "/studyGroup/studyGroups";
+        return "studyGroup/studyGroups";
     }
 
     @GetMapping("/showFormForStudyGroupAdd")
     public String showAddStudyGroupForm(Model model){
         model.addAttribute("studyGroup",new StudyGroup());
         model.addAttribute("personsList", personService.findAll());         //be care of 's' character
-        return "/studyGroup/studyGroupForm";
+        return "studyGroup/studyGroupForm";
     }
 
 //TODO search function
@@ -73,7 +72,7 @@ public class StudyGroupController {
     @GetMapping("/showFormForStudyGroupUpdate")
     public String getForPostEditStudyGroup(@RequestParam("groupId") @Valid int groupId, Model model){
         model.addAttribute("client",studyGroupService.findById(groupId));
-        return "/studyGroup/studyGroupForm";
+        return "studyGroup/studyGroupForm";
     }
 
 
@@ -82,13 +81,13 @@ public class StudyGroupController {
         StudyGroup studyGroup = studyGroupService.findById(groupId);
         model.addAttribute("studyGroup", studyGroup);
         model.addAttribute("personsList", studyGroup.getPersonList());     //be care of 's' character
-        return "/studyGroup/studyGroupForm";
+        return "studyGroup/studyGroupForm";
     }
 
     @PostMapping("/deleteStudyGroup")
     public String deleteStudyGroup(@RequestParam("groupId") @Valid int groupId) {
         studyGroupService.deleteById(groupId);
-        return "redirect:/studyGroup/studyGroups";
+        return "redirect:/studyGroup";
     }
 
 }

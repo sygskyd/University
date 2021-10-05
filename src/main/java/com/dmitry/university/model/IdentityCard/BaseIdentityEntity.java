@@ -1,6 +1,7 @@
 package com.dmitry.university.model.IdentityCard;
 
 
+import com.dmitry.university.model.BaseEntity;
 import com.dmitry.university.model.Community.StudyGroup;
 import com.dmitry.university.model.person.Person;
 import lombok.Data;
@@ -18,13 +19,13 @@ import javax.validation.constraints.*;
 @Setter
 @Entity
 @Table(name = "BASE_ID_ENTITY")
-public class BaseIdentityEntity {
+public class BaseIdentityEntity extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="CARD_ID")
-    @NotNull
-    private int cardId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="CARD_ID")
+//    @NotNull
+//    private int cardId;
 
     @NotNull
     @Size(min = 1)

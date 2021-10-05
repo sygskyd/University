@@ -1,6 +1,7 @@
 package com.dmitry.university.model.person;
 
 
+import com.dmitry.university.model.BaseEntity;
 import com.dmitry.university.model.Community.StudyGroup;
 import com.dmitry.university.model.IdentityCard.BaseIdentityEntity;
 import lombok.Data;
@@ -17,13 +18,13 @@ import java.util.Date;
 @ToString
 @Entity
 @Table(name = "PERSON")
-public class Person {
+public class Person  extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="PERSON_ID")
-    @NotNull
-    int personId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="PERSON_ID")
+//    @NotNull
+//    int personId;
 
     @NotNull
     @Size(min = 1)
@@ -39,9 +40,9 @@ public class Person {
     private Date birthdate;
 
 
-    @ManyToOne
-    @JoinColumn(name = "STUDY_GROUP_ID")
-    private StudyGroup studyGroup;
+//    @ManyToOne
+//    @JoinColumn(name = "STUDY_GROUP_ID")
+//    private StudyGroup studyGroup;
 
     @OneToOne(optional=false, mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private BaseIdentityEntity baseIdentityEntity;

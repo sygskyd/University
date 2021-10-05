@@ -2,6 +2,7 @@ package com.dmitry.university.model.Community;
 
 
 
+import com.dmitry.university.model.BaseEntity;
 import com.dmitry.university.model.person.Person;
 import lombok.Data;
 import lombok.Getter;
@@ -18,12 +19,12 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "STUDY_GROUP")
-public class StudyGroup {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="GROUP_ID")
-    @NotNull
-    private int groupId;
+public class StudyGroup  extends BaseEntity {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="GROUP_ID")
+//    @NotNull
+//    private int groupId;
 
     @Column(name = "GROUP_NAME")
     private String groupName;
@@ -34,6 +35,6 @@ public class StudyGroup {
     @Column(name = "COURSE_NUMBER")
     private int courseNumber;
 
-    @OneToMany(mappedBy = "studyGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Person> personList;
+//    @OneToMany(mappedBy = "studyGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Person> personList;
 }
